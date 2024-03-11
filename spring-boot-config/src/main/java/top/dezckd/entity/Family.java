@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
@@ -15,7 +16,8 @@ import org.springframework.validation.annotation.Validated;
 @Data
 @Component
 @Validated
-//@ConfigurationProperties(prefix = "family")
+@ConfigurationProperties(prefix = "family")
+@PropertySource(value={"classpath:family.properties"})
 public class Family {
 //    @Value("${family-name}")
     private String familyName;

@@ -1,9 +1,16 @@
-family:
-  family-name: "nice family"
-  father: "Jack"
-  mother: "Lucy"
-  child: "Tim"
-  years: 10
+spring:
+  profiles:
+    active: dev
+
+
+
+
+#family:
+#  family-name: "nice family"
+#  father: "Jack"
+#  mother: "Lucy"
+#  child: "Tim"
+#  years: 10
 
 person:
   name: "zhangfei"
