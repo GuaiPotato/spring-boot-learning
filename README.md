@@ -29,3 +29,11 @@ spring-boot-template
 补充：
 
 **Spring Boot** 项目中 `facicon` 不显示问题解决：https://www.cnblogs.com/ShakeTian/articles/13161945.html
+
+> 第五周
+
+- **MySQL驱动类名的变化**：在MySQL 5中，驱动类名为`com.mysql.jdbc.Driver`。然而在MySQL 8(8.0 版本以后)，JDBC驱动类名已经变成了`com.mysql.cj.jdbc.Driver`。在配置数据源时，需要按照MySQL版本选择对应的驱动类名。
+- **resultMap vs resultType**：这两个标签都用于MyBatis中结果集的映射。`resultType`是映射到单个对象或基本数据类型，它是简洁易用的。例如，`resultType="com.xyz.User"` 或 `resultType="java.util.HashMap"`。然而，`resultMap`是更强大和灵活的结果映射机制，它可以处理复杂表的映射和关联对象，并允许一对一、一对多等复杂映射关系。
+- **association vs collection**：这两个标签都用于ORM场景中的关联映射。`association`处理一对一关系，比如学生和班级关系，学生与班级为一对一关系。`collection`处理一对多关系，比如学生和课程关系，一门课程可以被多个学生选修，为一对多关系。
+- **MyBatis关联查询和resultMap同名冲突**：如果在SQL查询返回的结果集有同名字段，并且需要分别映射到不同的属性，您需要在查询SQL里使用别名（ `AS` ）来解决冲突，然后在`resultMap`映射中使用这些别名去映射到正确的属性。
+- **复习SQL语句基础**
