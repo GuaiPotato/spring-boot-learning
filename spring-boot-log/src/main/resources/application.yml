@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: dev
+
+logging:
+  level:
+    root: info
+    top.dezckd.log.controller: debug
+#  file:
+#    path: ..\logs
+#    name: ..\logs\spring-boot-logs.log
+#  pattern:
+#    console: '%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{10}) - %cyan(%msg%n)'

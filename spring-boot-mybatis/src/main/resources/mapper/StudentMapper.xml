@@ -41,7 +41,7 @@
     </delete>
 
 
-    <insert id="batchInsert" parameterType="Student">
+    <insert id="batchInsert" parameterType="java.util.List">
         INSERT INTO t_student VALUES
         <foreach collection="students" item="student" index="index" separator=",">
             (#{student.studentId},#{student.clazzId},#{student.studentName},#{student.hometown},#{student.birthday})
@@ -49,7 +49,7 @@
     </insert>
 
 
-    <delete id="batchDelete" parameterType="Student">
+    <delete id="batchDelete" parameterType="java.util.List">
         DELETE FROM t_student
         WHERE student_id IN
         <foreach collection="idList" item="item" index="index" open="(" separator="," close=")">
@@ -57,24 +57,33 @@
         </foreach>
     </delete>
 
-    <update id="batchUpdate" parameterType="Student">
-        <foreach collection="students" item="student" index="index" separator=";">
-            UPDATE t_student
-            <set>
-                <if test="student.clazzId != null">
-                    clazz_id = #{student.clazzId},
-                </if>
-                <if test="student.studentName != null">
-                    student_name = #{student.studentName},
-                </if>
-                <if test="student.hometown != null">
-                    hometown = #{student.hometown},
-                </if>
-                <if test="student.birthday != null">
-                    birthday = #{student.birthday}
-                </if>
-            </set>
-            WHERE student_id = #{student.studentId}
+    <update id="batchUpdate" parameterType="java.util.List">
+        UPDATE t_student
+        <set>
+            <trim prefix="clazz_id = CASE" suffix="END,">
+                <foreach collection="students" item="student">
+                    WHEN student_id = #{student.studentId} THEN #{student.clazzId}
+                </foreach>
+            </trim>
+            <trim prefix="student_name = CASE" suffix="END,">
+                <foreach collection="students" item="student">
+                    WHEN student_id = #{student.studentId} THEN #{student.studentName}
+                </foreach>
+            </trim>
+            <trim prefix="hometown = CASE" suffix="END,">
+                <foreach collection="students" item="student">
+                    WHEN student_id = #{student.studentId} THEN #{student.hometown}
+                </foreach>
+            </trim>
+            <trim prefix="birthday = CASE" suffix="END,">
+                <foreach collection="students" item="student">
+                    WHEN student_id = #{student.studentId} THEN #{student.birthday}
+                </foreach>
+            </trim>
+        </set>
+        WHERE student_id IN
+        <foreach collection="students" item="student" separator="," open="(" close=")">
+            #{student.studentId}
         </foreach>
     </update>
 
