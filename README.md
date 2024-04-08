@@ -19,6 +19,12 @@ spring-boot-mp
 ## 6. 日志框架
 spring-boot-log
 
+## 7. 全局异常处理
+
+spring-boot-exception
+
+
+
 
 
 # 小结
@@ -67,3 +73,54 @@ spring-boot-log
    - **分组和排序：** 可以使用动态SQL或查询构造器（如`QueryWrapper`或`LambdaQueryWrapper`）来执行包含分组和排序的复杂SQL查询。
    - **自动填充：** MyBatis-Plus可以自动填充特定字段，例如创建时间和更新时间。可以通过自定义元对象字段填充控制器实现，结合注解`@TableField(fill = FieldFill.INSERT)`等进行配置。
    - **逻辑删除：** 默认使用字段`deleteFlag`作为标识，其中默认删除值为`1`，未删除值为`0`。配置后，逻辑删除功能会自动生效。
+
+> 第七周
+
+1. 复习了JAVA基础：数据类型、异常处理、注解的概念。
+
+2. 复习HTTP常见状态码：200、301、302、304、400、401、403、404、500等.
+
+3. `jakarta.validation.constraints` 的注解：
+
+   | 注解                         | 作用                                              |
+   | :--------------------------- | :------------------------------------------------ |
+   | @NotNull                     | 标注的元素不能为null                              |
+   | @NotEmpty                    | 标注的元素不能为空，可用于字符串、集合、Map或数组 |
+   | @NotBlank                    | 标注的字符串不能为空且至少包含一个非空白字符      |
+   | @Min(value)                  | 标注的元素至少为指定的值                          |
+   | @Max(value)                  | 标注的元素最大不能超过指定的值                    |
+   | @Size(min=, max=)            | 标注的元素大小必须在指定的范围之内                |
+   | @Digits(integer=, fraction=) | 标注的数字的整数部分和小数部分的最大位数          |
+   | @Positive                    | 标注的元素必须为正数                              |
+   | @PositiveOrZero              | 标注的元素必须为非负数（正数或0）                 |
+   | @Negative                    | 标注的元素必须为负数                              |
+   | @NegativeOrZero              | 标注的元素必须为非正数（负数或0）                 |
+   | @Email                       | 标注的元素必须是电子邮件地址                      |
+   | @Pattern(regexp=)            | 标注的字符串必须匹配指定的正则表达式              |
+   | @Past                        | 标注的日期必须是过去的日期                        |
+   | @PastOrPresent               | 标注的日期必须是过去或现在的日期                  |
+   | @Future                      | 标注的日期必须是将来的日期                        |
+   | @FutureOrPresent             | 标注的日期必须是将来或现在的日期                  |
+
+4. 自定义异常和返回结果：
+
+   1. 定义错误码枚举：确定错误类型及消息。
+   2. 创建异常类：继承 `Exception` ，关联错误码枚举。
+   3. 抛出异常：在逻辑中检测并抛出自定义异常。
+   4. 捕获异常：在上层逻辑捕获 `@ExceptionHandler(value = Exception.class)` 自定义异常。
+   5. 格式化返回：根据异常返回统一格式的错误信息。
+
+5. 自定义注解的使用：
+
+   1. 定义注解:
+      - 使用`@interface`关键字创建自定义注解。
+      - 指定注解的适用目标（方法、字段、类等）和保留策略（源码、类文件、运行时）。
+      - 定义注解内的元素，可设置默认值。
+   2. 应用注解:
+      - 在代码中将自定义注解应用于类、方法、字段或其他注解上。
+      - 提供必要的注解元素值，除非有默认值。
+   3. 处理注解:
+      - 通过反射访问类、方法或字段上的注解信息。
+      - 根据注解元素的值执行特定的逻辑。
+
+6. 涉及的注解：`@RestControllerAdvice` 和 `@RestController` ， `@ExceptionHandler(value = Exception.class)`  ， `@Target({ElementType.FIELD})`  、 `@Retention(RetentionPolicy.RUNTIME)` 和 `@Constraint(validatedBy = IDCardValidator.class)` 。
