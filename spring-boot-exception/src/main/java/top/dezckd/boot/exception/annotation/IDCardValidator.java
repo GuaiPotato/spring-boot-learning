@@ -4,7 +4,6 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-import java.lang.annotation.Annotation;
 import java.util.regex.Pattern;
 
 /**

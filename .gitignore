@@ -35,3 +35,5 @@ build/
 ### word ###
 /README.docx
 
+### spring-boot-files 阿里云accessKey配置文件 ###
+/spring-boot-files/src/main/resources/aliyun-oss.properties

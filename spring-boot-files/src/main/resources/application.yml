@@ -1,0 +1,27 @@
+file:
+  upload-path: "D:\\Projects\\Subjects\\Spring Boot Back Basic\\upload"
+
+spring:
+  web:
+    resources:
+      static-locations: classpath:/static,file:${file.upload-path}
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_boot?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+minio:
+  endPoint: http://43.137.12.232:9000
+  accessKey: admin
+  secretKey: admin123
+
+# 配置mybatis-plus
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true # 开始驼峰式

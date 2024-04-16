@@ -21,6 +21,7 @@
         <module>spring-boot-database</module>
         <module>spring-boot-mybatis</module>
         <module>spring-boot-exception</module>
+        <module>spring-boot-files</module>
     </modules>
     <packaging>pom</packaging>
 

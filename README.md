@@ -23,6 +23,10 @@ spring-boot-log
 
 spring-boot-exception
 
+## 8. 分布式文件服务
+
+spring-boot-files
+
 
 
 
@@ -123,4 +127,112 @@ spring-boot-exception
       - 通过反射访问类、方法或字段上的注解信息。
       - 根据注解元素的值执行特定的逻辑。
 
-6. 涉及的注解：`@RestControllerAdvice` 和 `@RestController` ， `@ExceptionHandler(value = Exception.class)`  ， `@Target({ElementType.FIELD})`  、 `@Retention(RetentionPolicy.RUNTIME)` 和 `@Constraint(validatedBy = IDCardValidator.class)` 。
+6. 涉及的注解：
+
+   1. `@RestControllerAdvice` 和 `@RestController` 
+   2.  `@ExceptionHandler(value = Exception.class)` 
+   3.  `@Target({ElementType.FIELD})`  、 `@Retention(RetentionPolicy.RUNTIME)` 和 `@Constraint(validatedBy = IDCardValidator.class)` 。
+
+> 第八周
+
+学习了SpringBoot的文件服务，包括本地文件服务和分布式文件服务（OSS）。
+
+**前端反向代理：**
+
+vue3中在项目更目录下创建 `vue.confing.js`
+
+```js
+module.exports = {
+  devServer: {
+    port: 8090, // 端口号
+    proxy: {
+      "/api": {
+        target: "http://localhost:8080", // 目标接口的域名
+        changeOrigin: true,
+        ws: false,
+        pathRewrite: {
+          "^/api": "/", // 将/login重写为/user/login
+        },
+      }
+    },
+  },
+};
+```
+
+**本地文件服务：**
+
+配置文件路径：
+
+```yaml
+file:
+  upload-path: "D:\\Projects\\Subjects\\Spring Boot Back Basic\\upload"
+
+spring:
+  web:
+    resources:
+      static-locations: classpath:/static,file:${file.upload-path}
+```
+
+**分布式MinIO：**
+
+依赖：
+
+```xml
+<!--    minio    -->
+<dependency>
+    <groupId>io.minio</groupId>
+    <artifactId>minio</artifactId>
+    <version>8.5.9</version>
+</dependency>
+```
+
+配置文件路径：
+
+```yaml
+minio:
+  endPoint: http://43.137.12.232:9000
+  accessKey: admin
+  secretKey: admin123
+```
+
+初始化：
+
+```java
+@PostConstruct
+public void init() {
+    client = MinioClient.builder()
+            .endpoint(endPoint)
+            .credentials(accessKey, secretKey)
+            .build();
+}
+```
+
+**阿里云OSS：**
+
+[官方文档](https://help.aliyun.com/zh/oss/)
+
+依赖：
+
+```xml
+<!--    aliyun-oss    -->
+<dependency>
+    <groupId>com.aliyun.oss</groupId>
+    <artifactId>aliyun-sdk-oss</artifactId>
+    <version>3.14.0</version>
+</dependency>
+```
+
+ 配置文件路径：
+
+```yaml
+minio:
+  endPoint: http://43.137.12.232:9000
+  accessKey: admin
+  secretKey: admin123
+```
+
+初始化：
+
+```java
+OSS ossClient = new OSSClientBuilder().build(endpoint, accessKey, accessSecretKey);
+```
