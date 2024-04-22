@@ -96,16 +96,25 @@ public class UserImplement extends ServiceImpl<UserMapper, User> implements User
 
     @Override
     public boolean updateUserAvatarByUsername(User user, MultipartFile file) {
+        boolean res = uploadAvatar(user, file);
+        if(res) {
+            return updateUser(user);
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean uploadAvatar(User user, MultipartFile file) {
         if (user.getUsername() != null && file != null) {
             User fullUser = getUserByUsername(user.getUsername());
             if (fullUser.getAvatar() != null) {
                 ossTemplate.ossDeleteFile(fullUser.getAvatar(), Objects.requireNonNull(file.getOriginalFilename()));
+                String res = ossTemplate.ossUpload(file);
+                user.setAvatar(res);
+                return true;
             }
-            String avatarPath = ossTemplate.ossUpload(file);
-            user.setAvatar(avatarPath);
-            return updateUser(user);
         }
-
         return false;
     }
 }

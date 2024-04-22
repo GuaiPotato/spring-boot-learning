@@ -76,5 +76,18 @@ public class UserController {
         return RestResponse.ok(user);
     }
 
+    @PostMapping("/uploadAvatar")
+    public RestResponse<User> uploadAvatar(@RequestParam String username, @RequestParam("file") MultipartFile file) {
+        User user = userService.getUserByUsername(username);
+        if (user == null) {
+            return RestResponse.error(ErrorCode.NOT_FOUND);
+        }
+        boolean res = userService.uploadAvatar(user, file);
+        if (!res) {
+            return RestResponse.error(ErrorCode.INTERNAL_SERVICE_ERROR);
+        }
+        return RestResponse.ok(user);
+    }
+
 
 }

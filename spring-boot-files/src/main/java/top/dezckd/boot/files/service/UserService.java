@@ -18,4 +18,5 @@ public interface UserService {
     boolean updateUser(User user);
     boolean deleteUserById(Serializable id);
     boolean updateUserAvatarByUsername(User user, MultipartFile file);
+    boolean uploadAvatar(User user, MultipartFile file);
 }
